@@ -14,13 +14,7 @@ export default function LayoutBannerUI() {
 
   return (
     <Wrapper>
-      <Slider
-        dots={settings.dots}
-        infinite={settings.infinite}
-        speed={settings.speed}
-        slidesToShow={settings.slidesToShow}
-        slidesToScroll={settings.slidesToScroll}
-      >
+      <Slider {...settings}>
         <div>
           <SliderItem src="/images/layout_class/banner01.png" />
         </div>
