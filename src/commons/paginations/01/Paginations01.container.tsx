@@ -4,7 +4,7 @@ import { IPaginations01Props } from "./Paginations01.types";
 
 export default function Paginations01(props: IPaginations01Props) {
   const [startPage, setStartPage] = useState(1);
-  const [activedPage, setActivedPage] = useState(1);
+  const [activedPage, setActivedPage] = useState(1); // 현재 페이지에 색상을 주기위해
   const lastPage = props.count != null ? Math.ceil(props.count / 10) : 0;
 
   // 현재 페이지

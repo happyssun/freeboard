@@ -16,6 +16,8 @@ export default function BoardList() {
     QueryFetchBoardsArgs
   >(FETCH_BOARDS);
 
+  // 페이지네이션은 자식에 있어야 다른 페이지에서도 적용이 가능
+  // 그렇기 때문에 데이터를 가져오는것을 부모인 여기에서 실행하는것
   const { data: dataBoardsCount } = useQuery<
     Pick<Query, "fetchBoardsCount">,
     QueryFetchBoardsCountArgs

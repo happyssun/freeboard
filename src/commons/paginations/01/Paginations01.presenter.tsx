@@ -13,6 +13,7 @@ export default function Paginations01UI(props: IPaginations01UIProps) {
               id={String(index + props.startPage)}
               onClick={props.onClickPage}
               isActive={props.startPage + index === props.activedPage}
+              // 페이지가 시작페이지와 같으면 isActive가 트루 - 그러면 색상을 변화
             >
               {index + props.startPage}
             </Page>
