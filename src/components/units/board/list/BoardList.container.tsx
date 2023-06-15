@@ -18,8 +18,8 @@ export default function BoardList() {
   const { data, refetch } = useQuery<
     Pick<Query, "fetchBoards">,
     QueryFetchBoardsArgs
-    >(FETCH_BOARDS);
-  
+  >(FETCH_BOARDS);
+
   const { data: dataBoardsCount } = useQuery<
     Pick<Query, "fetchBoardsCount">,
     QueryFetchBoardsCountArgs
