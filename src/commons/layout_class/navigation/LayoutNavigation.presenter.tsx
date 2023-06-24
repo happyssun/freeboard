@@ -6,6 +6,7 @@ const NAVIGATION_MENUS = [
   { name: "라이브게시판", page: "/boards" },
   { name: "라이브상품", page: "/markets" },
   { name: "마이페이지", page: "/mypages" },
+  { name: "Open Api", page: "/openApi" },
 ];
 
 export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {
