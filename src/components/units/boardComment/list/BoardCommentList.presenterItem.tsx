@@ -67,10 +67,12 @@ export default function BoardCommentListUIItem(
           <S.PasswordInput type="password" onChange={onChangeDeletePassword} />
         </Modal>
       )}
+
+      {/* 수정하기가 아닐 때, 댓글 리스트들 */}
       {!isEdit && (
         <S.ItemWrapper>
           <S.FlexWrapper>
-            <S.Avatar src="/images/avatar.png" />
+            <S.Avatar src="/images/board/avatar.png" />
             <S.MainWrapper>
               <S.WriterWrapper>
                 <S.Writer>{props.el?.writer}</S.Writer>
@@ -92,9 +94,28 @@ export default function BoardCommentListUIItem(
           <S.DateString>{getDate(props.el?.createdAt)}</S.DateString>
         </S.ItemWrapper>
       )}
+
+      {/* 수정하기 창으로 들어왔을 때,  BoardCommentWrite 댓글창 재사용 */}
       {isEdit && (
         <BoardCommentWrite isEdit={true} setIsEdit={setIsEdit} el={props.el} />
       )}
     </>
   );
 }
+
+/* 여기서 isEdit 잘 확인
+  하나의 컴포넌트를 때에 따라 다르게 사용할때 등록하기/ 수정하기
+  이런식일때 isEdit를 true / false로 만들어서 보여줄 것과 보여주지 않을 것 혹은
+  버튼 이름을 바꾸거나 할때 사용
+*/
+
+/* setIsEdit 사용한 이유
+  수정하기 화면에서 수정하기 버튼을 클릭하면 그 부분이 다시 화면의 댓글 리스트로 돌아가야함
+  (isEdit가 true 에서 false로 바뀌어야함) - 이 부분이 부모의 상태를 바꿔줘야 하는 상황
+  그래서 부모의 setState를 바꿔줘야 하기 때문에 setIsEdit를 사용 - state끌어올리기
+  그래서
+  이 부분을 부모인 BoardCommentList.container의 onClcikUpdate()에서 
+  props.setIsEdit?.(false);로 받아준것
+
+
+ */
