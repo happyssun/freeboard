@@ -10,3 +10,11 @@ export const Wrapper = styled.div`
   height: 200px;
   width: 500px;
 `;
+
+export const MyInput = styled.input`
+  width: 350px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid blue;
+`;

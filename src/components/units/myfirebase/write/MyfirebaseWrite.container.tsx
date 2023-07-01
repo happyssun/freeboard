@@ -11,6 +11,9 @@ export default function MyFirebaseWrite() {
   const [contents, setContents] = useState("");
 
   const onClickSubmit = async () => {
+    // if (!writer || !title || !contents) {
+    //   alert("내용을 입력하세요");
+    // }
     const board = await addDoc(collection(getFirestore(firebaseApp), "board"), {
       writer,
       title,
