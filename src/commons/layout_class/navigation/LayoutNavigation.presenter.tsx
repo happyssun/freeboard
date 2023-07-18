@@ -7,6 +7,7 @@ const NAVIGATION_MENUS = [
   { name: "라이브상품", page: "/markets" },
   { name: "마이페이지", page: "/mypages" },
   { name: "Open Api", page: "/openApi" },
+  { name: "My firebase", page: "/myfirebase" },
 ];
 
 export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {

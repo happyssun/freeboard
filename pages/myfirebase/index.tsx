@@ -4,7 +4,6 @@ import MyFirebaseWrite from "../../src/components/units/myfirebase/write/myfireb
 export default function MyfirebasePage() {
   return (
     <>
-      <MyFirebaseWrite />
       <MyFirebaseList />
     </>
   );

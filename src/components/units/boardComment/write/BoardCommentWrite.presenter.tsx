@@ -4,7 +4,7 @@ import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
 export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
   return (
     <S.Wrapper>
-      {/* 수정하기 화면일때는 이 아이콘을 안보여 주기위해 */}
+      {/* 수정하기 화면일때는 '댓글' 아이콘을 안보여 주기위해 */}
       {!props.isEdit && (
         <>
           <S.PencilIcon src="/images/boardComment/write/pencil.png" />
@@ -18,6 +18,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           type="text"
           onChange={props.onChangeWriter}
           value={props.writer || (props.el?.writer ?? "")}
+          readOnly={!!props.el?.writer}
         />
         <S.Input
           placeholder="비밀번호"
@@ -40,7 +41,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
         <S.BottomWrapper>
           <S.ContentsLength>{props.contents.length}/100</S.ContentsLength>
 
-          {/* 댓글 등록하기와 수정하기에 따라 버튼 바뀌게 */}
+          {/* 댓글 등록하기와 수정하기에 따라 버튼의 이름이 바뀌게 */}
           <S.Button
             onClick={props.isEdit ? props.onClickUpdate : props.onClickWrite}
           >

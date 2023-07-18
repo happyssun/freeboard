@@ -1,5 +1,5 @@
 import { addDoc, collection, getFirestore } from "firebase/firestore";
-import MyFirebaseWriteUI from "./myfirebaseWrite.presenter";
+import MyFirebaseWriteUI from "./MyfirebaseWrite.presenter";
 import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
@@ -27,7 +27,6 @@ export default function MyFirebaseWrite() {
   const onChageWriter = (e: ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
     console.log(e.target.value);
-    console.log("gkdl");
   };
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
