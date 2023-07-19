@@ -4,7 +4,7 @@ import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 
-export default function MyFirebaseWrite() {
+export default function MyfirebaseWrite() {
   const router = useRouter();
   const [writer, setWriter] = useState("");
   const [title, setTitle] = useState("");

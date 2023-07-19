@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { IMyFirebaseWriterUIProps } from "./MyfirebaseWrite.types";
 import { MyInput, Wrapper } from "./MyfirebaseWrite.styles";
 
-export default function MyFirebaseWriteUI(props: IMyFirebaseWriterUIProps) {
+export default function MyfirebaseWriteUI(props: IMyFirebaseWriterUIProps) {
   return (
     <Wrapper>
       <div>

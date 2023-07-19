@@ -9,7 +9,7 @@ import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-export default function MyFirebaseList() {
+export default function MyfirebaseList() {
   const router = useRouter();
   const [dataBoards, setDataBoards] = useState<DocumentData[]>([]);
 

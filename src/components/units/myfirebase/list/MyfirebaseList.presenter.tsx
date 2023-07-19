@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as S from "./MyfirebaseList.styles";
 import { IMyFirebaseListUIProps } from "./MyfirebaseList.types";
 
-export default function MyFirebaseListUI(props: IMyFirebaseListUIProps) {
+export default function MyfirebaseListUI(props: IMyFirebaseListUIProps) {
   return (
     <S.Wrapper>
       <S.TableTop />
@@ -22,10 +22,10 @@ export default function MyFirebaseListUI(props: IMyFirebaseListUIProps) {
           <S.ColumnContents>{el.contents}</S.ColumnContents>
         </S.Row>
       ))}
-     <S.Button onClick={props.onClickMoveToBoardNew}>
-          <S.PencilIcon src="/images/board/list/write.png" />
-          게시물 등록하기
-        </S.Button>
+      <S.Button onClick={props.onClickMoveToBoardNew}>
+        <S.PencilIcon src="/images/board/list/write.png" />
+        게시물 등록하기
+      </S.Button>
     </S.Wrapper>
   );
 }
