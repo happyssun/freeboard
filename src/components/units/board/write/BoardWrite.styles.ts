@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import DaumPostcodeEmbed from "react-daum-postcode";
-import { IBoardWriteUIProps, ISubmitbuttonProps } from "./BoardWrite.types";
+import { ISubmitbuttonProps } from "./BoardWrite.types";
 
 export const Wrapper = styled.div`
   width: 1200px;

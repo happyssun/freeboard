@@ -16,6 +16,7 @@ export interface IBoardWriteUIProps {
   onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickAddressSearch: () => void;
+  onClickModalCancel: () => void;
   onChangeAddressDetail: (e: ChangeEvent<HTMLInputElement>) => void;
   onCompleteAddressSearch: (data: any) => void;
   onClickSubmitBtn: () => void;
@@ -23,11 +24,14 @@ export interface IBoardWriteUIProps {
 
   isEdit: boolean;
   isActive: boolean;
-  isOpen: boolean;
+  isModalOpen: boolean;
   data?: Pick<Query, "fetchBoard">;
   zipcode: string;
   address: string;
   addressDetail: string;
+
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
+  fileUrls: any;
 }
 
 export interface ISubmitbuttonProps {

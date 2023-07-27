@@ -1,11 +1,19 @@
+import UploadFile from "../../../commons/uploads/01/uploads01.container";
+import UploadFilesPage from "../../../commons/uploads/01/uploads01.container";
 import * as S from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <>
-      {props.isOpen && (
-        <S.AddressModal visible={true}>
+      {props.isModalOpen && (
+        <S.AddressModal
+          open={props.isModalOpen}
+          onCancel={props.onClickModalCancel}
+          cancelText={"검색창 닫기"}
+          okText={"확인"}
+        >
           <S.AddressSearchInput onComplete={props.onCompleteAddressSearch} />
         </S.AddressModal>
       )}
@@ -89,10 +97,16 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </S.InputWrapper>
         <S.ImageWrapper>
           <S.Label>사진첨부</S.Label>
-          <S.UploadButton>+</S.UploadButton>
-          <S.UploadButton>+</S.UploadButton>
-          <S.UploadButton>+</S.UploadButton>
+          {props.fileUrls.map((el: string, index: number) => (
+            <UploadFile
+              key={uuidv4()}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={props.onChangeFileUrls}
+            />
+          ))}
         </S.ImageWrapper>
+
         <S.OptionWrapper>
           <S.Label>메인설정</S.Label>
           <S.RadioButton type="radio" id="youtube" name="radio-button" />

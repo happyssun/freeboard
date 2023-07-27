@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.query";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
 import {
@@ -10,11 +10,12 @@ import {
   MutationUpdateBoardArgs,
 } from "../../../../commons/types/generated/types";
 import { Modal } from "antd";
+import { checkValidationFile } from "../../../commons/uploads/01/uploads01.validation";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [writer, setWriter] = useState("");
   const [pw, setPw] = useState("");
@@ -29,13 +30,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-  // const [addressModal, setAddressModal] = useState(false);
+
+  // 파일업로드를 구글에 저장하여 url로 바뀐 파일을 담음 (총 ui를 3개 만들꺼라 배열로 3개)
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   // 게시판등록
   const [createBoard] = useMutation<
     Pick<Mutation, "createBoard">,
     MutationCreateBoardArgs
   >(CREATE_BOARD);
+
+  // 게시판 업데이트
   const [updateBoard] = useMutation<
     Pick<Mutation, "updateBoard">,
     MutationUpdateBoardArgs
@@ -90,7 +95,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onClickAddressSearch = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
+  };
+
+  // 주소검색 모달창 안의 동작
+  const onClickModalCancel = () => {
+    setIsModalOpen(false);
   };
 
   const onChangeAddressDetail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -101,16 +111,20 @@ export default function BoardWrite(props: IBoardWriteProps) {
     console.log(data);
     setAddress(data.address);
     setZipcode(data.zonecode); // 콘솔창에서 데이터를 확인해보면 zone코드로 들어가있음
-    setIsOpen(false);
+    setIsModalOpen(false);
+  };
+
+  // 파일 업로드
+  // FileUrls라는 state의 특정 index 값이 구글 스토리지에 올라간 이미지 파일의 url로 바뀌게 됨
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
   };
 
   // 게시판 등록하기
   const onClickSubmitBtn = async () => {
     if (!writer) {
-      // writer가 없니?
-      /* writer에 아무것도 입력이 되지 않으면 ''빈문자열 - 이것은 false / 무언가 입력되면 true
-          그런데 앞에 ! 부정연산자가 있으니 반대로
-          따라서 글자가 입력안되면 조건문은 true가 되어 setWriterError가 실행 */
       setWriterError("Please enter a Writer!");
     }
     if (!pw) {
@@ -128,8 +142,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
         const result = await createBoard({
           variables: {
             createBoardInput: {
-              writer, // shorthand-property :객체에서 key와 value가 이름이 같으면 생략가능
-              password: pw, // 이름이 같지 않음으로 생략 불가
+              writer,
+              password: pw,
               title,
               contents,
 
@@ -228,10 +242,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onClickUpdateBtn={onClickUpdateBtn}
       isEdit={props.isEdit}
       data={props.data}
-      isOpen={isOpen}
+      isModalOpen={isModalOpen}
+      onClickModalCancel={onClickModalCancel}
       zipcode={zipcode}
       address={address}
       addressDetail={addressDetail}
+      fileUrls={fileUrls}
+      onChangeFileUrls={onChangeFileUrls}
     ></BoardWriteUI>
   );
 }

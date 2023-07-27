@@ -1,5 +1,8 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { Query, QueryFetchBoardsArgs } from "../../types/generated/types";
+import {
+  Query,
+  QueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 import { MouseEvent } from "react";
 
 export interface IPaginations01Props {
