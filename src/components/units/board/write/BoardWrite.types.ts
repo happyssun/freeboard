@@ -31,7 +31,7 @@ export interface IBoardWriteUIProps {
   addressDetail: string;
 
   onChangeFileUrls: (fileUrl: string, index: number) => void;
-  fileUrls: any;
+  fileUrls: string[];
 }
 
 export interface ISubmitbuttonProps {

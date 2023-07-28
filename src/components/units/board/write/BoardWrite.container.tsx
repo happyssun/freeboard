@@ -120,6 +120,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);
+    console.log(fileUrl);
   };
 
   // 게시판 등록하기

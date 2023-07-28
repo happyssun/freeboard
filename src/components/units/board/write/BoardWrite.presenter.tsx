@@ -1,5 +1,4 @@
 import UploadFile from "../../../commons/uploads/01/uploads01.container";
-import UploadFilesPage from "../../../commons/uploads/01/uploads01.container";
 import * as S from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import { v4 as uuidv4 } from "uuid";
@@ -97,14 +96,16 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </S.InputWrapper>
         <S.ImageWrapper>
           <S.Label>사진첨부</S.Label>
-          {props.fileUrls.map((el: string, index: number) => (
-            <UploadFile
-              key={uuidv4()}
-              index={index}
-              fileUrl={el}
-              onChangeFileUrls={props.onChangeFileUrls}
-            />
-          ))}
+          <S.ImageBox>
+            {props.fileUrls.map((el: string, index: number) => (
+              <UploadFile
+                key={uuidv4()}
+                index={index}
+                fileUrl={el}
+                onChangeFileUrls={props.onChangeFileUrls}
+              />
+            ))}
+          </S.ImageBox>
         </S.ImageWrapper>
 
         <S.OptionWrapper>
