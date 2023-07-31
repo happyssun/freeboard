@@ -61,6 +61,17 @@ export const Contents = styled.div`
   padding-bottom: 120px;
 `;
 
+export const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Image = styled.img`
+  width: 440px;
+  height: 280px;
+  margin-bottom: 30px;
+`;
+
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;

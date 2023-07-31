@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
@@ -10,7 +10,6 @@ import {
   MutationUpdateBoardArgs,
 } from "../../../../commons/types/generated/types";
 import { Modal } from "antd";
-import { checkValidationFile } from "../../../commons/uploads/01/uploads01.validation";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
@@ -111,17 +110,31 @@ export default function BoardWrite(props: IBoardWriteProps) {
     console.log(data);
     setAddress(data.address);
     setZipcode(data.zonecode); // 콘솔창에서 데이터를 확인해보면 zone코드로 들어가있음
-    setIsModalOpen(false);
+    setIsModalOpen((prev) => !prev);
   };
 
   // 파일 업로드
   // FileUrls라는 state의 특정 index 값이 구글 스토리지에 올라간 이미지 파일의 url로 바뀌게 됨
+  // fileUrl은 파일이름이 될것이고 index는 그 배열의 넘버가 될것
+  // 예로 강아지.jpg 파일을 세번째 업로드버튼에 업로드 했다고 가정하고
   const onChangeFileUrls = (fileUrl: string, index: number) => {
-    const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
-    setFileUrls(newFileUrls);
+    // 스프레드 연산자로 가져옴. 그렇지 않고 fileUrls를 그냥 바꾸면 원본 자체가 바뀌는 문제가 생김
+    const newFileUrls = [...fileUrls]; // [...fileUrls]은 위의 state에 있는 ["","",""]
+    newFileUrls[index] = fileUrl; // ["","","강아지.jpg"]
+    setFileUrls(newFileUrls); // ["","","강아지.jpg"]로 setState가 변경되고 리렌더가 될것임
     console.log(fileUrl);
   };
+
+  // 게시판의 수정하기 버튼클릭으로 수정하기 화면에 들어왔을때 등록했던 이미지가 처음 등록하기처럼 보여지게 하기위해
+  // 디폴트값을 넣어줘야하는데 이름,내용과 같은식으로 디폴트값을 넣기가 힘듬 그래서 useState부분에 처음부터 값을 넣어줌 디폴트가 된다
+  // 그래서 여기에 useEffect를 사용 한 것
+  // ~images?.length -- 이미지가 있으면(length는 길이니깐 이게 있으면 이미지가 있다는뜻)
+  // 그 이미지들을 setFileUrls에 넣어줘 -- 디폴트값을 넣어주란 얘기
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length) {
+      setFileUrls([...props.data?.fetchBoard.images]);
+    }
+  }, [props.data]);
 
   // 게시판 등록하기
   const onClickSubmitBtn = async () => {
@@ -153,6 +166,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
                 address,
                 addressDetail,
               },
+              images: [...fileUrls],
             },
           },
         });
@@ -161,6 +175,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
           return;
         }
         alert("게시글이 등록되었습니다!");
+        console.log(router.query.boardId);
 
         void router.push(`/boards/${result.data?.createBoard._id}`);
       } catch (error) {
@@ -177,7 +192,23 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   // 이게 실제로 수정페이지에서 수정하기 버튼을 클릭했을때의 이벤트
   const onClickUpdateBtn = async () => {
-    if (!title && !contents) {
+    // 업로드한 파일의 현재와 기본값이 같은지 다른지 확인
+    // 두개가 내용은 같다 하더라도 이것은 안의 내용만 같을뿐 주소가 같지 않다 - 비교대상은 주소기에 오류발생
+    // 배열이나 객체의 값을 비교할때는 그 값을 JSON.stringify로 만들어(문자열로 변경하여) 상수에 넣어 확인하게 하고
+    // 그 상수를 서로 비교하여 같은지를 확인하는것
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFiles = currentFiles !== defaultFiles; // 현재파일과 기본파일값이 같니??
+
+    if (
+      !title &&
+      !contents &&
+      !address &&
+      !addressDetail &&
+      !addressDetail &&
+      !zipcode &&
+      !isChangedFiles
+    ) {
       alert("수정한 내용이 없습니다.");
       return;
     }
@@ -201,6 +232,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       if (addressDetail)
         updateBoardInput.boardAddress.addressDetail = addressDetail;
     }
+    if (isChangedFiles) updateBoardInput.images = fileUrls;
 
     try {
       const result = await updateBoard({
