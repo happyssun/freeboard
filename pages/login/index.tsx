@@ -1,56 +1,40 @@
-import "./tailwindLogIn.css";
-export default function LoginPage(): JSX.Element {
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMoveToPage } from "../../src/components/commons/hooks/customs/useMoveToPage";
+import * as styles from "../../styles/logIn";
+import { useRouter } from "next/router";
+import { Mutation, MutationLoginUserArgs, Query } from "../../src/commons/types/generated/types";
+import { useState } from "react";
+
+const LOGIN_USER = gql`
+  mutation loginUser($password: String!, $email: String!) {
+    loginUser(password: $password, email: $email) {
+      accessToken
+    }
+  }
+`;
+const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [loginUser] = useMutation<
+    Pick<Mutation, "loginUser">,
+    MutationLoginUserArgs
+  >(LOGIN_USER);
+
+
+
+export default function LoginForm(): JSX.Element {
+  const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
+
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-      <div className="w-96 p-8 bg-white rounded shadow-lg">
-        <h2 className="text-3xl font-live italic text-purple-600 mb-6">
-          Login
-        </h2>
-        <form>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <div className="flex justify-between items-center">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <styles.FormContainer>
+      <styles.Title>로그인</styles.Title>
+      <styles.Input type="text" placeholder="이메일" onChange={onChangeEmail} />
+      <styles.Input type="password" placeholder="비밀번호" />
+      <styles.Button type="submit">로그인</styles.Button>
+      <styles.Button type="button" onClick={onClickMoveToPage("/register")}>
+        회원가입으로 이동
+      </styles.Button>
+    </styles.FormContainer>
   );
 }
