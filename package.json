@@ -12,8 +12,8 @@
   "dependencies": {
     "-": "^0.0.1",
     "@apollo/client": "^3.7.3",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material-ui/core": "^4.12.4",
     "@next/font": "13.1.1",
     "@tailwindcss/forms": "^0.5.7",
@@ -26,6 +26,7 @@
     "bootstrap": "^5.3.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "firebase": "^9.23.0",
+    "google-fonts": "^1.0.0",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
     "next": "12.1.0",
@@ -37,6 +38,7 @@
     "react-infinite-scroller": "^1.2.6",
     "react-player": "^2.10.1",
     "react-slick": "^0.29.0",
+    "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1",
     "uuid": "^9.0.0",
     "yup": "^1.3.2"

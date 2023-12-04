@@ -30,12 +30,42 @@ export const button = css`
   width: 100%;
   padding: 12px;
   margin: 6px 0;
-  background-color: #5729ff;
-  color: #fff;
   font-weight: bold;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+`;
+export const SubButton = styled.button`
+  ${button}
+  background-color: #5729ff;
+  color: #fff;
+
+  &:hover {
+    background-color: #4924cc; /* 조금 더 어두운 색상으로 변경 */
+    color: #fff;
+  }
+
+  &:active {
+    background-color: #361a8e; /* 클릭 시 더 어두운 색상으로 변경 */
+    color: #fff;
+  }
+`;
+
+export const MoveButton = styled.button`
+  ${button}
+  background-color: #f2f5fc;
+  color: #5729ff;
+
+  &:hover {
+    background-color: #e3e7f4;
+    color: #5729ff;
+  }
+
+  &:active {
+    background-color: #c4c9e4;
+    color: #5729ff;
+  }
 `;
 
 export const FormContainer = styled.form`

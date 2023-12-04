@@ -27,8 +27,37 @@ export const InnerLogo = styled.div`
   cursor: pointer;
 `;
 
-export const InnerButton = styled.span`
+export const buttonWrapper = styled.div`
+  display: flex;
+`;
+
+export const InnerButton = styled.div`
   margin: 10px;
-  color: #5729ff;
   cursor: pointer;
+  border: 1px solid #5729ff;
+  border-radius: 10px;
+  padding: 8px 16px;
+  transition: background-color 0.3s, color 0.3s;
+`;
+
+// 첫 번째 버튼 스타일
+export const SignInButton = styled(InnerButton)`
+  background-color: #5729ff;
+  color: #fff;
+
+  &:hover {
+    background-color: #fff;
+    color: #5729ff;
+  }
+`;
+
+// 두 번째 버튼 스타일
+export const SignUpButton = styled(InnerButton)`
+  background-color: #fff;
+  color: #5729ff;
+
+  &:hover {
+    background-color: #5729ff;
+    color: #fff;
+  }
 `;

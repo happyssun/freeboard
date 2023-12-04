@@ -1,8 +1,11 @@
 import { useMoveToPage } from "../../hooks/customs/useMoveToPage";
+import { ButtonWrapper } from "../../layout/header/LayoutHeader.styles";
 import {
   InnerButton,
   InnerLogo,
   InnerWrapper,
+  SignInButton,
+  SignUpButton,
   Wrapper,
 } from "./LayoutHeader.styles";
 
@@ -13,14 +16,14 @@ export default function LayoutHeader() {
     <Wrapper>
       <InnerWrapper>
         <InnerLogo onClick={onClickMoveToPage("/boards")}>💎 LIVE</InnerLogo>
-        <div>
-          <InnerButton onClick={onClickMoveToPage("/login")}>
-            로그인
-          </InnerButton>
-          <InnerButton onClick={onClickMoveToPage("/register")}>
-            회원가입
-          </InnerButton>
-        </div>
+        <ButtonWrapper>
+          <SignInButton onClick={onClickMoveToPage("/signin")}>
+            Sign In
+          </SignInButton>
+          <SignUpButton onClick={onClickMoveToPage("/signup")}>
+            Sign Up
+          </SignUpButton>
+        </ButtonWrapper>
       </InnerWrapper>
     </Wrapper>
   );

@@ -1,6 +1,6 @@
 // components/Input.tsx
 import React, { ChangeEvent } from "react";
-import * as styles from "../../../../styles/logIn";
+import * as styles from "../../../../styles/sign";
 
 interface InputProps {
   type: string;
