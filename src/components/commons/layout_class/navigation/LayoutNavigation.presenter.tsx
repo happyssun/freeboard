@@ -3,9 +3,9 @@ import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
 import { ILayoutNavigationUIProps } from "./LayoutNavigation.types";
 
 const NAVIGATION_MENUS = [
-  { name: "라이브게시판", page: "/boards" },
-  { name: "라이브상품", page: "/markets" },
-  { name: "마이페이지", page: "/dashboard" },
+  { name: "Boards", page: "/boards" },
+  { name: "Products", page: "/markets" },
+  { name: "DashBoard", page: "/userDashboard" },
   { name: "Open Api", page: "/openApi" },
   { name: "My firebase", page: "/myfirebase" },
 ];
