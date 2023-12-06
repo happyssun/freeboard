@@ -1,9 +1,7 @@
-// pages/login/index.tsx
-
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useMoveToPage } from "../../src/components/commons/hooks/customs/useMoveToPage";
 import * as styles from "../../styles/sign";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../src/components/inputs/01";
 import styled from "@emotion/styled";
 import { useRecoilState } from "recoil";
@@ -29,6 +27,7 @@ const FETCH_USER_LOGGED_IN = gql`
     }
   }
 `;
+// ... (이전 코드 부분)
 
 export default function SignInForm(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
@@ -51,11 +50,20 @@ export default function SignInForm(): JSX.Element {
 
       if (accessToken) {
         setAccessToken(accessToken);
+      }
+      await refetch();
+    } catch (error) {
+      console.error("Login Error", error);
+    }
+  };
 
-        // fetchUserLoggedIn 쿼리 실행
-        await refetch();
+  useEffect(() => {
+    // fetchUserLoggedIn 데이터가 업데이트될 때까지 대기
 
-        // 모달창에 환영 메시지 표시
+    // if(accessToken)  - accessToken이 존재하면 (즉, 사용자가 로그인되어 있다면) 조건  로그인 상태를 확인할때 적절
+    // if(userData) -  useQuery로 데이터를 비동기적으로 가져오고 그 데이터를 기반으로 무언가를 하려는 경우, if (userData)를 사용하는 것이 적절
+    if (userData) {
+      try {
         const { name } = userData?.fetchUserLoggedIn || {};
         setModalContent({
           title: "Welcome",
@@ -63,20 +71,21 @@ export default function SignInForm(): JSX.Element {
         });
 
         setShowModal(true);
-
-        // 대시보드 페이지로 이동
-        onClickMoveToPage("/dashboard");
+      } catch {
+        // 로그인 실패 시 모달 표시
+        setModalContent({
+          title: "Error",
+          message: "Invalid email or password.",
+        });
+        setShowModal(true);
       }
-    } catch (error) {
-      console.error("Login Error", error);
-
-      // 로그인 실패 시 모달 표시
-      setModalContent({
-        title: "Error",
-        message: "Invalid email or password.",
-      });
-      setShowModal(true);
     }
+  }, [userData]);
+
+  // 모달이 닫힐 때 페이지 이동
+  const closeModalAndNavigate = () => {
+    setShowModal(false); // 모달 닫기
+    onClickMoveToPage("/userDashboard")(); // 페이지 이동
   };
 
   return (
@@ -95,9 +104,7 @@ export default function SignInForm(): JSX.Element {
         <Modal
           title={modalContent.title}
           message={modalContent.message}
-          onClose={() => {
-            setShowModal(false);
-          }}
+          onClose={closeModalAndNavigate}
         />
       )}
     </SignInContainer>

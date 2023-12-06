@@ -60,11 +60,8 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ title, message, onClose }) => {
-  // 모달이 열리면 5초 후에 닫히도록 설정
   React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      onClose(); // 부모 컴포넌트에서 전달된 onClose 함수 호출
-    }, 5000);
+    const timeout = setTimeout(onClose, 3000);
     return () => {
       clearTimeout(timeout);
     };
