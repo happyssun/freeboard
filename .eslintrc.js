@@ -21,5 +21,6 @@ module.exports = {
     "@typescript-eslint/consistent-type-imports": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/strict-null-checks": "off",
   },
 };

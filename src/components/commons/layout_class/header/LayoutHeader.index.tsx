@@ -17,10 +17,10 @@ export default function LayoutHeader() {
       <InnerWrapper>
         <InnerLogo onClick={onClickMoveToPage("/boards")}>💎 LIVE</InnerLogo>
         <ButtonWrapper>
-          <SignInButton onClick={onClickMoveToPage("/signin")}>
+          <SignInButton onClick={onClickMoveToPage("/signIn")}>
             Sign In
           </SignInButton>
-          <SignUpButton onClick={onClickMoveToPage("/signup")}>
+          <SignUpButton onClick={onClickMoveToPage("/signUp")}>
             Sign Up
           </SignUpButton>
         </ButtonWrapper>
