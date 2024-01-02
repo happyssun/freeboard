@@ -117,10 +117,7 @@ export default function SignUpForm() {
         Sign Up
       </styles.SubButton>
 
-      <styles.MoveButton
-        type="button"
-        onClick={() => onClickMoveToPage("/signIn")}
-      >
+      <styles.MoveButton type="button" onClick={onClickMoveToPage("/signIn")}>
         Move to Sign In
       </styles.MoveButton>
 

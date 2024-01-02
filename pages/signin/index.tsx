@@ -96,7 +96,7 @@ export default function SignInForm(): JSX.Element {
       <styles.SubButton type="button" onClick={handleLogin}>
         Sign In
       </styles.SubButton>
-      <styles.MoveButton type="button" onClick={onClickMoveToPage("/signup")}>
+      <styles.MoveButton type="button" onClick={onClickMoveToPage("/signUp")}>
         Move to Sign Up
       </styles.MoveButton>
 
